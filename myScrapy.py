@@ -159,11 +159,13 @@ class TripAdvisorSpider(scrapy.Spider):
         url = response.request.url
         allPageURL = [url]
         
+
         total_pages = 0
         if(last_page is not None):
             total_pages = last_page
         cur_page = 1
-        start = 5
+        step = len(response.css("div[class='review-container']::attr(data-reviewid)").extract())
+        start = step
 
         while(total_pages>=cur_page+1):
             # print(total_pages,cur_page+1)
@@ -171,7 +173,7 @@ class TripAdvisorSpider(scrapy.Spider):
             new_url = url.split(mod_place_name)
             new_url = new_url[0] + 'or'+str(start)+'-'+ mod_place_name+ new_url[1]
             allPageURL.append(str(new_url))
-            start += 5
+            start += step
             cur_page +=1
 
 
