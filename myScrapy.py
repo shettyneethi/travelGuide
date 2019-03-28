@@ -18,8 +18,7 @@ mycol = mydb["REVIEWS"]
 
 class TripAdvisorSpider(scrapy.Spider):
     name = "blog"
-    start_urls = ['https://www.tripadvisor.com/AttractionProductReview-g33388-d13000536-Rocky_Mountain_National_Park_Tour-Denver_Colorado.html',
-                    'https://www.tripadvisor.com/Attraction_Review-g60776-d117416-Reviews-Colorado_National_Monument-Fruita_Colorado.html',
+    start_urls = ['https://www.tripadvisor.com/AttractionProductReview-g33388-d13000536-Rocky_Mountain_National_Park_Tour-Denver_Colorado.html','https://www.tripadvisor.com/Attraction_Review-g60776-d117416-Reviews-Colorado_National_Monument-Fruita_Colorado.html',
                     'https://www.tripadvisor.com/Attraction_Review-g33388-d3038683-Reviews-History_Colorado_Center-Denver_Colorado.html',
                     'https://www.tripadvisor.com/Attraction_Review-g671305-d2156150-Reviews-Colorado_Provencal-Rustrel_Vaucluse_Provence_Alpes_Cote_d_Azur.html',
                     'https://www.tripadvisor.com/Attraction_Review-g33388-d1418676-Reviews-Colorado_Convention_Center-Denver_Colorado.html',
@@ -141,9 +140,9 @@ class TripAdvisorSpider(scrapy.Spider):
         total_rating = response.css("span[class*='ui_bubble_rating']::attr(alt)").extract()[0].strip().split(" ")[0]
         data["OVERALL_RATING"] = float(total_rating.strip())
         print "#####################################################################################OVERALL_RATING",total_rating
-        total_reviews = response.xpath(".//span[@class='reviews_header_count']").extract()[0].strip()
-        total_reviews = ''.join(i for i in total_reviews if i.isdigit())
-        data["REVIEW_COUNT"] = int(total_reviews.strip())
+        # total_reviews = response.xpath(".//span[@class='reviews_header_count']").extract()[0].strip()
+        # total_reviews = ''.join(i for i in total_reviews if i.isdigit())
+        
 
         try:
             data["LOCATION"] =response.xpath(".//span[@class='locality']/descendant::text()").extract()[0].strip().split(",")[0]
@@ -184,6 +183,7 @@ class TripAdvisorSpider(scrapy.Spider):
         for link in allPageURL:
             all_reviews += self.parseReviewsInPage(response,link)
 
+        data["REVIEW_COUNT"] = len(all_reviews)
         data["REVIEWS"] = all_reviews
         x = mycol.insert_one(data)
 # driver.close()
