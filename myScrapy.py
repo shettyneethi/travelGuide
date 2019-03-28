@@ -138,12 +138,19 @@ class TripAdvisorSpider(scrapy.Spider):
         place_name = str(response.xpath(".//h1[@id='HEADING']/descendant::text()").extract()[0].strip())
         data["NAME"] = place_name
         print "####################################################################################NAME", place_name
-        total_rating = response.css("span[class='ui_bubble_rating bubble_50']::attr(alt)").extract()[0].strip().split(" ")[0]
+        total_rating = response.css("span[class*='ui_bubble_rating']::attr(alt)").extract()[0].strip().split(" ")[0]
         data["OVERALL_RATING"] = float(total_rating.strip())
         print "#####################################################################################OVERALL_RATING",total_rating
         total_reviews = response.xpath(".//span[@class='reviews_header_count']").extract()[0].strip()
         total_reviews = ''.join(i for i in total_reviews if i.isdigit())
         data["REVIEW_COUNT"] = int(total_reviews.strip())
+
+        try:
+            data["LOCATION"] =response.xpath(".//span[@class='locality']/descendant::text()").extract()[0].strip().split(",")[0]
+        except:
+            data["LOCATION"] = place_name
+
+        print "++++++++++++++++"+data["LOCATION"]
         try:
             last_page = int(response.xpath("//div[@class='unified ui_pagination ']//a[@class='pageNum last taLnk ']/descendant::text()").extract()[0].strip())
         except:
@@ -169,7 +176,7 @@ class TripAdvisorSpider(scrapy.Spider):
             cur_page +=1
 
 
-        #commenT THIS MODIFIED
+        # #commenT THIS MODIFIED
 
         # print self.parseReviewsInPage(response,url)
 
