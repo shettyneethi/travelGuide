@@ -1,12 +1,12 @@
 <?php
 function scrape_insta_hash($tag) {
-	$insta_source = file_get_contents('https://www.instagram.com/explore/tags/'.$tag.'/'); // instagrame tag url
+	$insta_source = file_get_contents('https://www.instagram.com/explore/tags/'.$tag.'/'); // instagram tag url
 	$shards = explode('window._sharedData = ', $insta_source);
 	$insta_json = explode(';</script>', $shards[1]); 
 	$insta_array = json_decode($insta_json[0], TRUE);
 	return $insta_array; // this return a lot things print it and see what else you need
 }
-$tag = 'rockies'; // tag for which ou want images 
+$tag = 'rockies'; // tag for which you want images 
 $results_array = scrape_insta_hash($tag);
 //$limit = 7; //previous was only limit to 7 images
 $limit = 56; // provide the limit thats important because one page only give some images.
