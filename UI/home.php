@@ -125,21 +125,28 @@ $(document).ready(function(){
           ini_set('display_errors', true);
           ini_set('display_startup_errors', true);
 
-           require 'vendor/autoload.php';
+          require 'vendor/autoload.php';
            
           $client = new MongoDB\Client("mongodb://localhost:27017");
           $collection = $client->DATASET->REVIEWS;
-          $locations =  $collection->find(array(), array('projection' => array('NAME' => 1)));
+          $locations =  $collection->find(array(), array('projection' => array('NAME' => 1,"PROFILE_PIC_URL" => 1)));
           // $locNames = array();
 
+          
+
           foreach($locations as $mongoid => $doc) {
-             $data = "<div class='col-md-4 mb-5'>
-                  <div class='card h-100'>
-                    <img class='card-img-top' src='../dataset/testImage.jpeg' style='height:100%'' alt=''>
-                    <div class='card-body'>
+              $tag = str_replace(' ' ,'',$doc["NAME"]);
+              
+             
+              $image_data  = '<img class="card-img-top" src="'.$doc["PROFILE_PIC_URL"].'" alt="">';
+              $data = "<div class='col-md-4 mb-5'>
+                  <div class='card h-100'>".$image_data."
+                  <div class='card-body'>
                       <h4 class='card-title'>";
-             $data = $data.$doc["NAME"];
-           $data = $data."</h4>
+                    // <img class='card-img-top' src='../dataset/testImage.jpeg' style='height:100%'' alt=''>
+                    
+              $data = $data.$doc["NAME"];
+              $data = $data."</h4>
                       <p class='card-text'>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente esse necessitatibus neque sequi doloribus.</p>
                     </div>
                     <div class='card-footer'>
