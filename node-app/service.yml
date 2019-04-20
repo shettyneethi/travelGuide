@@ -1,0 +1,13 @@
+kind: Service
+apiVersion: v1
+metadata:
+  #Service name
+  name: node-app-svc
+spec:
+  selector:
+    app: bdaproject
+  ports:
+    - protocol: TCP
+      port: 3000
+      targetPort: 3000
+  type: LoadBalancer

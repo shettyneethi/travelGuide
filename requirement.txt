@@ -1,0 +1,16 @@
+install R :https://www.digitalocean.com/community/tutorials/how-to-install-r-on-ubuntu-18-04
+sudo apt-get install -y libssl-dev libsasl2-dev
+install.packages("mongolite")
+
+https://www.digitalocean.com/community/tutorials/how-to-install-node-js-on-ubuntu-16-04
+https://www.sitepoint.com/build-simple-beginner-app-node-bootstrap-mongodb/
+
+ref:
+https://rstudio-pubs-static.s3.amazonaws.com/40817_63c8586e26ea49d0a06bcba4e794e43d.html
+http://www.sthda.com/english/wiki/word-cloud-generator-in-r-one-killer-function-to-do-everything-you-need
+
+
+
+https://scotch.io/tutorials/google-cloud-platform-i-deploy-a-docker-app-to-google-container-engine-with-kubernetes
+
+https://cloud.google.com/sdk/auth_success

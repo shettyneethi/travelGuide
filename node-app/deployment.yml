@@ -1,0 +1,23 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: node-app-dep
+  labels:
+    #Project ID
+    app: bdaproject
+spec:
+  #Run two instances of our application
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: bdaproject
+    spec:
+      #Container details
+      containers:
+        - name: node-app-web
+          image: gcr.io/bdaproject/node-app:0.0.1
+          imagePullPolicy: Always
+          #Ports to expose
+          ports:
+          - containerPort: 3000

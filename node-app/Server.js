@@ -5,6 +5,16 @@ var path = __dirname + '/views/';
 
 app.use(express.static('public'));
 
+// var GoogleMapsLoader = require('google-maps'); // only for common js environments
+ 
+// GoogleMapsLoader.load(function(google) {
+//     new google.maps.Map(el, options);
+// });
+
+// GoogleMapsLoader.onLoad(function(google) {
+//     console.log('I just loaded google maps api');
+// });
+
 router.use(function (req,res,next) {
   console.log("/" + req.method);
   next();
