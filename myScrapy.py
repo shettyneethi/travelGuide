@@ -16,12 +16,23 @@ driver = webdriver.Chrome(executable_path=os.path.abspath("chromedriver.exe"))
 myclient = pymongo.MongoClient("mongodb://localhost:27017/")
 mydb = myclient["DATASET"]
 mycol = mydb["REVIEWS"]
+state = "ARIZONA"
 
 
 class TripAdvisorSpider(scrapy.Spider):
     name = "blog"
-    state = "COLORADO"
-    start_urls = ["https://www.tripadvisor.com/Attraction_Review-g33345-d2303415-Reviews-Rock_Park-Castle_Rock_Colorado.html"]
+    # start_urls = ["https://www.tripadvisor.com/Attraction_Review-g31244-d8014757-Reviews-Crystal_Forest_Museum_Gift_Shop-Holbrook_Arizona.html"]
+    start_urls = ["https://www.tripadvisor.com/Attraction_Review-g143028-d12235326-Reviews-Grand_Canyon_National_Park-Grand_Canyon_National_Park_Arizona.html",
+"https://www.tripadvisor.com/Attraction_Review-g31371-d218269-Reviews-Mooney_Falls-Supai_Arizona.html",
+"https://www.tripadvisor.com/Attraction_Review-g60971-d320675-Reviews-Grand_Falls_of_the_Little_Colorado_River-Flagstaff_Arizona.html",
+"https://www.tripadvisor.com/Attraction_Review-g60950-d103176-Reviews-Old_Tucson-Tucson_Arizona.html",
+"https://www.tripadvisor.com/Attraction_Review-g60950-d12704675-Reviews-Saguaro_National_Park-Tucson_Arizona.html",
+"https://www.tripadvisor.com/Attraction_Review-g60773-d143103-Reviews-Chiricahua_National_Monument-Willcox_Arizona.html",
+"https://www.tripadvisor.com/Attraction_Review-g60834-d126771-Reviews-Rainbow_Bridge_National_Monument-Page_Arizona.html",
+"https://www.tripadvisor.com/Attraction_Review-g31323-d2069644-Reviews-Watson_Lake-Prescott_Arizona.html",
+"https://www.tripadvisor.com/Attraction_Review-g60753-d144686-Reviews-Spider_Rock-Chinle_Apache_County_Arizona.html",
+"https://www.tripadvisor.com/Attraction_Review-g31352-d105473-Reviews-Oak_Creek_Canyon-Sedona_Arizona.html"]
+
     def parseReviewsInPage(self,response,url):
         driver.get(url)
         # review_ids= response.css("div[class='review-container']::attr(data-reviewid)").extract()
