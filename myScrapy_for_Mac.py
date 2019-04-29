@@ -15,7 +15,7 @@ options.add_argument('disable-infobars')
 driver = webdriver.Chrome(executable_path=os.path.abspath("chromedriver"))
 myclient = pymongo.MongoClient("mongodb://localhost:27017/")
 mydb = myclient["DATASET"]
-mycol = mydb["REVIEWS"]
+mycol = mydb["TRIPADVISOR"]
 state = "NEW YORK"
 
 
